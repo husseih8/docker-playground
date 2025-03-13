@@ -1,2 +1,1 @@
-# development-project
-for useful scripts 
+# /development
