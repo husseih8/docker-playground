@@ -1,2 +1,0 @@
-2025/03/25 17:18:02 [emerg] 1#1: directive "access_log" is not terminated by ";" in /etc/nginx/nginx.conf:7
-2025/03/25 17:21:16 [emerg] 1#1: directive "access_log" is not terminated by ";" in /etc/nginx/nginx.conf:7
