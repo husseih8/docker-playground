@@ -3,7 +3,7 @@ version: "3.9"
 services:
   nginx: 
     image: nginx:latest 
-    container_name: nginx-server1
+    container_name: webserver 
     ports:
       - 8080:80
     volumes:
@@ -11,8 +11,8 @@ services:
       - ./logs/nginx:/var/log/nginx
   attacker:
     build:
-      context: ./attacker 
-    container_name: attacker
+      context: ./adversary
+    container_name: adversary
     depends_on:
       - nginx
     command: tail -f /dev/null
@@ -22,8 +22,9 @@ services:
     container_name: fluentd-log-collector
     volumes:
       - ./logs/nginx:/var/log/nginx:ro
-      - ./fluentd:/fluentd
+      - ./fluentd/etc:/fluentd/etc          # <--- this is the new line
       - ./fluentd/output:/fluentd/output
+      - ./fluentd/nginx-access.pos:/fluentd/nginx-access.pos
     environment:
       - FLUENTD_CONF=fluentd.conf
 
