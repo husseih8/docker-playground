@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  nginx: 
+    image: nginx:latest 
+    container_name: webserver 
+    ports:
+      - 8080:80
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./logs/nginx:/var/log/nginx
+  attacker:
+    build:
+      context: ./adversary
+    container_name: adversary
+    depends_on:
+      - nginx
+    command: tail -f /dev/null
+  
+  fluentd:
+    image: fluent/fluentd:v1.16-debian-1
+    container_name: fluentd-log-collector
+    volumes:
+      - ./logs/nginx:/var/log/nginx:ro
+      - ./fluentd/etc:/fluentd/etc          # <--- this is the new line
+      - ./fluentd/output:/fluentd/output
+      - ./fluentd/nginx-access.pos:/fluentd/nginx-access.pos
+    environment:
+      - FLUENTD_CONF=fluentd.conf
+
+  
