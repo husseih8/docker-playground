@@ -7,7 +7,7 @@ You can clone and run the below
 ```sh
 make rebuild
 ```
-This will automate the docker compose build and up. 
+This will automate the docker compose down, build and up, as i haven't added cronjobs or a proper pipeline in place.
 
 Can open a seperate terminal to generate some logs for fluentd to collect/transform into JSON or can run the shell scripts from the adversary container
 ```sh
